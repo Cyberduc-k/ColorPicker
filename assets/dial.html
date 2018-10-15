@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="dial.css">
+</head>
+<body>
+    <div id="titlebar"><h2 id="title"></h2></div>
+    <main>
+        <input type="text">
+        <div class="bar"></div>
+    </main>
+    <div id="buttons">
+        <button id="confirm">Confirm</button>
+        <button id="cancel">Cancel</button>
+    </div>
+    <script>
+        const { ipcRenderer } = require("electron");
+        const title = document.querySelector("#title");
+        const input = document.querySelector("input");
+        const confirm_ = document.querySelector("#confirm");
+        const cancel = document.querySelector("#cancel");
+
+        function setType (d) {
+            const data = JSON.parse(d);
+
+            if (data.type == "newSwatch") {
+                document.title = "New swatch";
+                title.innerHTML = "New swatch";
+                input.value = "";
+            }
+            else if (data.type == "renameSwatch") {
+                document.title = "Rename swatch";
+                title.innerHTML = "Rename swatch";
+                input.value = data.oldName;
+            }
+
+            input.focus();
+        }
+
+        confirm_.addEventListener("click", () => {
+            ipcRenderer.send("dialogResult", { cancel: false, data: input.value });
+        });
+
+        cancel.addEventListener("click", () => {
+            ipcRenderer.send("dialogResult", { cancel: true });
+        });
+    </script>
+</body>
+</html>

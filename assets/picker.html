@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sample Color</title>
+    <style>
+        html, body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #display {
+            box-sizing: border-box;
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
+            border: 10px solid orange;
+            position: fixed;
+            filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.3));
+        }
+    </style>
+</head>
+<body>
+    <div id="display"></div>
+    <script>
+        const { ipcRenderer } = require("electron");
+        const robot = require("robotjs");
+        const display = document.querySelector("#display");
+
+        window.addEventListener("mousemove", move);
+        window.addEventListener("keydown", e => {
+            if (e.key === 'Escape') ipcRenderer.send('closePick', false);
+        });
+
+        window.addEventListener("click", () => {
+            ipcRenderer.send("closePick", true);
+        });
+
+        function move (e) {
+            const pos = robot.getMousePos();
+            const color = robot.getPixelColor(pos.x, pos.y);
+
+            display.style.left = `${pos.x - 50}px`;
+            display.style.top = `${pos.y - 50}px`;
+            display.style.borderColor = `#${color}`;
+
+            ipcRenderer.send("sampleColor", color);
+        }
+    </script>
+</body>
+</html>
