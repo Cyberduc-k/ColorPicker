@@ -1,23 +1,26 @@
 {
-  "name": "color-picker",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/electron/main.js",
-  "scripts": {
-    "build": "electron-packager . cyberduck-color-picker --icon=./assets/logo --platform=all --arch=x64 --asar --out=./release --overwrite=true"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/color": "^3.0.0",
-    "electron": "^3.0.2",
-    "electron-packager": "^12.2.0"
-  },
-  "dependencies": {
-    "color": "^3.1.0",
-    "robotjs": "^0.5.1",
-    "vue": "^2.5.17",
-    "vuex": "^3.0.1"
-  }
+    "name": "color-picker",
+    "version": "1.0.1",
+    "description": "",
+    "main": "dist/electron/main.js",
+    "scripts": {
+        "start": "electron .",
+        "rebuild": "electron-rebuild",
+        "build": "electron-packager . cyberduck-color-picker --icon=./assets/logo --executableName=\"Cyberduck Color Picker\" --platform=all --arch=x64 --out=./release --overwrite=true"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/color": "^3.0.0",
+        "electron": "^3.0.2",
+        "electron-packager": "^12.2.0",
+        "electron-rebuild": "^1.8.2"
+    },
+    "dependencies": {
+        "color": "^3.1.0",
+        "robotjs": "^0.5.1",
+        "vue": "^2.5.17",
+        "vuex": "^3.0.1"
+    }
 }
